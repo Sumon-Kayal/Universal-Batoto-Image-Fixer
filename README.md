@@ -2,8 +2,6 @@
 
 Universal Batoto Image Fixer automatically repairs broken images on Bato.to and its mirrors by probing alternative mirror servers and swapping subdomain prefixes when images fail to load.
 
-Badges: (add store/badge images as needed)
-
 - Author: Sumon Kayal
 - License: MIT
 - Current stable: v8.1+
