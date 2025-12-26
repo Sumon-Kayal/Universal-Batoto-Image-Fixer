@@ -163,7 +163,7 @@ Q: What if the script/extension fails to fix images or behaves unexpectedly?
 - A: First try disabling and re-enabling the extension/userscript and ensure it's allowed on the site. If the problem persists, report the issue on the Batoto subreddit: [https://www.reddit.com/r/batoto](https://www.reddit.com/r/batoto). Include steps to reproduce, browser/version, and any console logs or screenshots.
 
 Q: Some users' avatar thumbnails are broken in the comment section (I can't see their profile image). What can I do?
-- A: Use bato.cc/v3x or `bato.si.
+- A: Use bato.cc/v3x or bato.si.
 
 ---
 
