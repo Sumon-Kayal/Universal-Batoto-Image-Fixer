@@ -1,9 +1,8 @@
-Temporary chat
-5,684 tokens
-
-User
-Check the readme
 Universal Batoto Image Fixer
+![alt text](https://img.shields.io/badge/version-8.1+-blue.svg)
+![alt text](https://img.shields.io/badge/license-MIT-green.svg)
+![alt text](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
+
 Universal Batoto Image Fixer automatically repairs broken images on Bato.to and its mirrors by probing alternative mirror servers and swapping subdomain prefixes when images fail to load.
 Author: Sumon Kayal
 License: MIT
