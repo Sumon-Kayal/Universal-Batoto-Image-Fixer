@@ -108,7 +108,7 @@ download from this [Link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-
 
 **Cromite**:
 1. **Settings** → **User Scripts** → **Activate User Scripts**
-2. **Add script** → select the downloaded `.user.js`
+2. **Add script** → select the downloaded [Fixer v8.0.js](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js) 
 
 **Mobile BrowsFor Visers** (Kiwi / Lemur):
 1. Install Tampermonkey extension from Web Store
