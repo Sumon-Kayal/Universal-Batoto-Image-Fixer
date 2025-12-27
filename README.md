@@ -64,11 +64,11 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 
 > **Note**: Due to developer registration fees, this extension is not hosted on the official Chrome Web Store. Please use the manual installation method below or the Userscript version.
 
-1. Download the latest ZIP file from [Releases](https://github.com/SumonKayal/universal-batoto-image-fixer/releases)
-2. Extract the folder to a **permanent location** on your PC (don't delete or move it later)
-3. Open your browser's Extensions page (`chrome://extensions/`)
-4. Enable **Developer mode** (top right toggle)
-5. Click **Load unpacked** and select the extracted folder containing `manifest.json`
+1. Download the latest ZIP file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.1)
+3. Extract the folder to a **permanent location** on your PC (don't delete or move it later)
+4. Open your browser's Extensions page (`chrome://extensions/`)
+5. Enable **Developer mode** (top right toggle)
+6. Click **Load unpacked** and select the extracted folder containing `manifest.json`
 
 #### Firefox
 
@@ -83,28 +83,28 @@ Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/un
 > ⚠️ **Note**: Temporary extensions are removed on browser restart
 
 **Firefox Unsigned Install** (Developer Edition/Nightly/ESR only):
-1. Download the XPI file from [Releases](https://github.com/SumonKayal/universal-batoto-image-fixer/releases)
-2. Open Firefox and type `about:config` in the address bar
-3. Accept the warning and search for `xpinstall.signatures.required`
-4. Set it to `false` (double-click to toggle)
-5. Restart Firefox
-6. Open the downloaded `.xpi` file and approve installation
+1. Download the XPI file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.1)
+3. Open Firefox and type `about:config` in the address bar
+4. Accept the warning and search for `xpinstall.signatures.required`
+5. Set it to `false` (double-click to toggle)
+6. Restart Firefox
+7. Open the downloaded `.xpi` file and approve installation
 
 ### Userscript (Tampermonkey / Violentmonkey / Greasemonkey)
 
 #### Method A — Direct Install (Recommended):
 1. Open Tampermonkey Dashboard → **Utilities**
-2. Paste the raw script URL:  
-   `https://raw.githubusercontent.com/SumonKayal/universal-batoto-image-fixer/main/fixer.js`
+2. Paste the Pastebin RAW script URL:  
+   `https://pastebin.com/raw/c0mBHwtH`
 3. Click **Install**
 
 #### Method B — Import from File:
-1. Download the raw userscript from the GitHub raw link
+1. Download the raw userscript from the GitHub raw [link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js)
 2. In Tampermonkey → **Utilities** → **Import from file**, choose the file
-
+download from this [Link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js)
 #### Method C — Manual Copy-Paste:
 1. Create a **New Userscript** in Tampermonkey
-2. Copy the code from `fixer.js` into the editor
+2. Copy the code from [Fixer v8.0.js](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js) into the editor
 3. Save
 
 ### Cromite & Mobile Support
@@ -113,10 +113,10 @@ Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/un
 1. **Settings** → **User Scripts** → **Activate User Scripts**
 2. **Add script** → select the downloaded `.user.js`
 
-**Mobile Browsers** (Kiwi / Lemur):
+**Mobile BrowsFor Visers** (Kiwi / Lemur):
 1. Install Tampermonkey extension from Web Store
 2. Use the Userscript installation methods above
-
+3. For Via Browser on Android, go to Settings, add a new script, then copy and paste the script from [Fixer v8.0.js](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js)
 ---
 
 ## 📖 Usage
@@ -170,11 +170,13 @@ When an image fails to load, the algorithm:
 ```bash
 zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*" "fixer_v8.0.js"
 
+⸻
 
 **Windows (PowerShell):**
 
 Compress-Archive -Path manifest.json, fixer.js, LICENSE, CHANGELOG.md -DestinationPath universal-batoto-image-fixer-v8.1.zip
 
+⸻
 
 Before publishing:
 • Ensure manifest version matches `fixer.js` version
@@ -235,7 +237,7 @@ Licensed under the **MIT License** — see the [LICENSE](LICENSE) file for detai
 ⸻
 
 
-Contact
+Contact : sumankayalsuman4@proton.me
 
 **Author**: Sumon Kayal  
 **Repository**: [GitHub - Universal Batoto Image Fixer](https://github.com/SumonKayal/universal-batoto-image-fixer)
