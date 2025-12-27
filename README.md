@@ -1,264 +1,241 @@
-Universal Batoto Image Fixer
-![alt text](https://img.shields.io/badge/version-8.1+-blue.svg)
-![alt text](https://img.shields.io/badge/license-MIT-green.svg)
-![alt text](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
+I've reorganized your README into a clean, well-structured markdown format. Here's the fixed version:
 
-Universal Batoto Image Fixer automatically repairs broken images on Bato.to and its mirrors by probing alternative mirror servers and swapping subdomain prefixes when images fail to load.
-Author: Sumon Kayal
-License: MIT
-Current stable: v8.1+
-Table of Contents
-About
-Repository Contents
-Installation
-Browser Extension (Recommended)
-Userscript (Tampermonkey / Compatible)
-Cromite & Mobile Support
-Usage
-Technical Details
-Fallback Roots
-Compatibility & Requirements
-Packaging for Distribution
-Store Submission Notes
-Troubleshooting & FAQ
-Contributing
-Changelog & License
-Contact
-About
+
+# Universal Batoto Image Fixer
+
+![Version](https://img.shields.io/badge/version-8.1+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Platform](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
+
+Universal Batoto Image Fixer automatically repairs broken images on Bato.to and its mirrors by detecting failed image loads and instantly probing alternative mirror servers and subdomain prefixes to restore content without user intervention.
+
+- **Author**: Sumon Kayal
+- **License**: MIT
+- **Current Stable**: v8.1+
+
+---
+
+## ✨ Features
+
+- **Automatic Recovery**: No manual refreshing or clicking required
+- **Smart Probing**: Cycles through multiple mirrors (mbdny.org, mbrtz.org, etc.) until a working image is found
+- **Cross-Platform**: Available as Chrome Extension (MV3), Firefox Add-on, and Userscript
+- **Lightweight**: Minimal code footprint with no external dependencies or tracking
+- **Mobile Support**: Works on Android via Cromite, Kiwi, or Lemur browsers
+- **Lazy Loading Compatible**: Seamlessly integrates with Bato's native lazy-loading and "Long Strip" reading modes
+
+---
+
+## 📋 Table of Contents
+
+- [About](#about)
+- [Repository Contents](#repository-contents)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Technical Details](#-technical-details)
+- [Troubleshooting & FAQ](#-troubleshooting--faq)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
+
+---
+
+## About
+
 This project patches image URLs on Bato.to (and known mirrors) when images fail to load in the browser. It attempts alternative mirror domains and subdomain prefixes to recover images without user intervention.
-Repository Contents
-manifest.json — Chrome/Firefox MV3 manifest.
-fixer.js — Main content script (v8.1+).
-fixer_v8.0.js — Legacy v8.0 reference (also available via Pastebin).
-LICENSE — MIT License.
-CHANGELOG.md — Project history.
-Installation
-Browser Extension
-Chrome / Chromium / Edge (Manual Install)
-Note: Due to the developer registration fees, this extension is not hosted on the official Chrome Web Store. Please use the manual installation method below or use the Userscript version.
-Download the ZIP file from the Releases section of this repository. Extract it somewhere you’ll keep (don’t delete or move it later).
-Then install it in your browser:
-Open your browser’s Extensions page (chrome://extensions/ or browser equivalent).
-Turn on Developer mode.
-Choose Load unpacked and select the extracted folder that contains manifest.json
-Firefox
-Official Store: Install from Firefox Add-ons when available: Universal Batoto Image Fixer by Sumon Kayal.
-Manual (Temporary Load):
-Go to about:debugging#/runtime/this-firefox.
-Click "Load Temporary Add-on...".
-Select manifest.json from the project folder.
-Note: Temporary extensions are removed on restart.
-Firefox (unofficial install)
-Download the XPI file from the Releases section.
-Because this is an unsigned build, Firefox requires signature checks to be turned off before installing: Open Firefox,
-Type about:config in the address bar and press Enter.
-Promise you’ll be careful when Firefox gives the friendly warning.
-In the search box, type: xpinstall.signatures.required Set it to false (double-click does it). Restart Firefox.
-Disable add-on signature verification in Firefox
-Open the downloaded .xpi file
-Approve installation when prompted
-After that, the extension will be installed and usable in Firefox.
-Userscript (Tampermonkey / Violentmonkey / Greasemonkey)
-Method A — Import via URL:
-Open Tampermonkey Dashboard → Utilities.
-Paste the raw script URL: https://pastebin.com/raw/c0mBHwtH.
-Click Install.
-Method B — Import from file:
-Download the raw userscript from the Pastebin raw link and save as universal-batoto-image-fixer.user.js.
-In Tampermonkey → Utilities → Import from file, choose the file.
-Method C — Manual copy-paste:
-Create a New Userscript in Tampermonkey.
-Copy the code from fixer.js (or pastebin raw) into the editor.
-Save.
-Cromite & Mobile Support
-Cromite supports userscripts natively:
-Settings → User Scripts → Activate User Scripts.
-Add script → select the downloaded .user.js.
-Via mobile browsers supporting userscripts:
-Direct install: visit https://pastebin.com/raw/c0mBHwtH (if supported).
-Manual: copy script into browser's script manager as above.
-Usage
-Install the extension or userscript.
-Navigate to the bato.to /bato.cc page or mirror. When images fail to load, the script will automatically try alternate roots and subdomains to restore the images.
-No additional configuration required.
-Example: If an image URL on mbdny.org 404s, the script will attempt the other configured domains and variant prefixes until a working image is found, then update the image src.
-Technical Details
-Fallback Roots
-The script probes the following domains (current list — keep updated in fixer.js):
-mbdny.org
-mbrtz.org
-bato.to
-mbwbm.org
-mbznp.org
-mbqgu.org
-The algorithm:
-Detect broken/errored images (error event / failing load).
-Generate candidate hostnames by swapping subdomain prefixes and using the above roots.
-Probe candidates (HEAD or image test).
-Replace img.src with the first successful candidate.
-Compatibility & Requirements
-Browser: Chrome/Chromium/Edge (MV3) and Firefox (WebExtensions).
-JavaScript: content script compatible with modern browsers (v8.1+ recommended).
-For userscript installs, Tampermonkey or comparable manager required.
-Packaging for Distribution
-macOS / Linux:
-code
-Bash
-zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*"
-Windows (PowerShell):
-code
-Powershell
-Compress-Archive -Path manifest.json, fixer.js, LICENSE, CHANGELOG.md -DestinationPath universal-batoto-image-fixer-v8.1.zip
-Before publishing:
-Ensure manifest version matches fixer.js header/version note.
-Keep host permissions minimal (see Store Submission Notes).
-Store Submission Notes
-Host permissions: Request the smallest scope necessary (e.g., only the domains you need or <all_urls> only if unavoidable).
-Privacy Policy: Chrome Web Store requires a privacy policy URL (even if no data is collected). Provide a short policy page if publishing.
-Review: Provide clear extension description and screenshots demonstrating the fix in action.
-Versioning: Increment manifest.json and fixer.js version numbers together to avoid review confusion.
-Troubleshooting & FAQ
-Q: Images still don’t load after installing?
-A: Ensure the userscript/extension is active and allowed on the target site. Disable other extensions/userscripts that may rewrite images.
-Q: Is this accessing or storing user data?
-A: No user data is collected or stored by the script. It only attempts alternate URLs for images loaded in-page.
-Q: Can I add more mirror domains?
-A: Yes — edit the fallback list in fixer.js and reload the extension / reinstall the userscript.
-Q: How do I debug?
-A: Open DevTools → Console and look for logs prefixed by "Universal Batoto Image Fixer". You can also add temporary console statements in fixer.js.
-Q: What if the script/extension fails to fix images or behaves unexpectedly?
-A: First try disabling and re-enabling the extension/userscript and ensure it's allowed on the site. If the problem persists, report the issue on the Batoto subreddit: https://www.reddit.com/r/batoto. Include steps to reproduce, browser/version, and any console logs or screenshots.
-Q: Some users' avatar thumbnails are broken in the comment section (I can't see their profile image). What can I do?
-A: Use bato.cc/v3x or bato.si.
-Contributing
-Thanks for your interest! A small checklist:
-Open an issue to discuss larger changes before coding.
-Fork the repo and create a feature branch.
-Keep manifest.json and fixer.js version numbers in sync.
-Submit a PR with a clear description and changelog entry.
-Reporting issues: use the GitHub Issue tracker and include steps to reproduce and browser/version details.
-Changelog & License
-See CHANGELOG.md for release history.
-Licensed under the MIT License. See LICENSE for details.
-Contact
-Author: Sumon Kayal
-Repository maintainer: (use GitHub profile/contact)
-warning
-Model
-ThinkingThoughts
-Inspecting the Document
-I've just reviewed the project's README file, noting the use of Markdown formatting. I'm carefully analyzing its structure and content for clarity, especially regarding the intended image fixing functionality within the Universal Batoto Image Fixer. I'm focusing on identifying any ambiguities or potential usability issues a user might encounter.
-Examining Open-Source Practices
-I'm now carefully examining the project's adherence to standard open-source conventions. The README's structure is quite good. I appreciate the clear title, introduction, and license declaration. The concise description of mirror probing and the explicit listing of core files enhance clarity. Installation guides for Chrome, Firefox (including the note about signed extensions), and a userscript setup are well-structured. The straightforward usage section with an example and technical details of the fallback system provide a useful foundation for the project.
-Analyzing Improvements
-I'm now diving into the 'Contributing' and 'License' sections, standard boilerplates as expected. I'm focusing on the Firefox installation instructions, noting that the "unsigned build" wording could confuse general users. It's better to clarify that signature bypass requires specific browser versions. I also considered the current use of Pastebin links for the userscript; they have potential reliability issues. Hosting the .user.js on GitHub's raw link is a more stable option.
-Evaluating Potential Enhancements
-The README is indeed well-written, professional, and thorough. I'm focusing on potential enhancements. The Firefox installation guide's version caveat and Pastebin-to-GitHub Raw suggestion stand out as valuable improvements. I am also noting the versioning in the manifest.json. Finally, a light grammar check is underway for minor flow improvements.
-Collapse to hide model thoughts
 
-chevron_right
-Model
-ThinkingThoughts
-Considering Release Notes
-I'm currently focused on generating a comprehensive release notes document. The README suggests a CHANGELOG.md file is the expected format, and I need to incorporate details for versions 8.0 and 8.1. My aim is to deliver a complete "full release md".
-Structuring the Changelog
-I'm now putting together the core structure for the changelog. I'm prioritizing clarity. I'm focusing on adopting the "Keep a Changelog" format with the latest version at the top. Details for versions 8.0 and 8.1 are next on the list, along with changes in earlier versions which will be more summarized. Version 8.1 will highlight the transition to MV3, and 8.0 is a major milestone involving a significant logic overhaul.
-Developing Mirror Logic
-I'm now zeroing in on a more robust mirror selection mechanism. Instead of a simple single-mirror check, I envision the system cycling through a series of mirrors to enhance reliability and availability. My focus is on ensuring data integrity.
-Collapse to hide model thoughts
+---
 
-chevron_right
-Model
-ThinkingThoughts
-Considering Implementations
-I've been exploring various implementation options, including Chrome MV3, Firefox, and Userscript for Tampermonkey. There are specific caveats I must address regarding Firefox. I've also been looking at adapting it for mobile browsers such as Cromite. It's a priority to make sure the image repairs are effective across all platforms.
-Structuring the README
-I've been meticulously refining the README file. The structure is now solidified, with sections for the title/version, a concise intro, features list, repository structure, detailed installation instructions (Chrome, Firefox, Userscript, Mobile), technical details, troubleshooting tips, development notes, and license/credits. I've also incorporated the "Why use this?" rationale within the features section, and will include a specific note regarding Firefox Developer/Nightly in the Firefox installation instructions.
-Improving Readability and Support
-I'm now focusing on enhancing the README's readability and user support. I'm adding a link to the subreddit as a primary support channel. The aim is a helpful but accessible tone, suitable for both technical and non-technical users. I'm utilizing Markdown features such as badges, code blocks, and blockquotes for improved readability.
-Collapse to hide model thoughts
+## Repository Contents
 
-chevron_right
-This is the finalized, comprehensive README.md for your GitHub repository. It incorporates the original content, the technical improvements discussed, and formatted sections for professional presentation.
-Universal Batoto Image Fixer
-![alt text](https://img.shields.io/badge/version-8.1+-blue.svg)
-![alt text](https://img.shields.io/badge/license-MIT-green.svg)
-![alt text](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
-Universal Batoto Image Fixer automatically repairs broken images on Bato.to and its mirrors. It works by detecting failed image loads and instantly probing alternative mirror servers and subdomain prefixes to restore the content without user intervention.
-✨ Features
-Automatic Recovery: No manual refreshing or clicking required.
-Smart Probing: Swaps between multiple mirrors (mbdny.org, mbrtz.org, etc.) until a working image is found.
-Cross-Platform: Available as a Chrome Extension (MV3), Firefox Add-on, and Userscript.
-Lightweight: Minimal code footprint with no external dependencies or tracking.
-Mobile Support: Works on Android via Cromite, Kiwi, or Lemur browsers.
-📂 Repository Contents
-manifest.json — Chrome/Firefox Manifest V3 configuration.
-fixer.js — Main content script (Latest version).
-fixer_v8.0.js — Legacy reference version.
-CHANGELOG.md — Detailed version history.
-LICENSE — MIT License.
-🚀 Installation
-1. Browser Extension (Recommended)
-Chrome / Edge / Chromium
-Since this extension is manually distributed:
-Download the latest ZIP file from the Releases section.
-Extract the folder to a permanent location on your PC.
-Open your browser’s Extensions page (chrome://extensions/).
-Enable Developer mode (top right toggle).
-Click Load unpacked and select the extracted folder.
-Firefox
-Official Store: Install from Firefox Add-ons (Recommended).
-Manual (Temporary):
-Go to about:debugging#/runtime/this-firefox.
-Click "Load Temporary Add-on..." and select manifest.json.
-Manual (Permanent - Unsigned):
-Note: Only works on Firefox Developer Edition, Nightly, or ESR.
-Set xpinstall.signatures.required to false in about:config.
-Download the .xpi from Releases and drag it into Firefox.
-2. Userscript (Tampermonkey / Violentmonkey)
-This is the easiest way to stay updated.
-Method A (Direct Link): Click here to install (Requires Tampermonkey).
-Method B (Manual): Copy the code from fixer.js and paste it into a "New Userscript" in your manager.
-3. Mobile (Android)
-Cromite: Enable "User Scripts" in Settings and add the fixer.js file.
-Kiwi / Lemur Browser: Install the Tampermonkey extension from the Web Store, then use the Userscript method above.
-⚙️ Technical Details
-How it Works
-The script monitors the page for image "error" events. When an image fails to load, the algorithm:
-Identifies the current broken domain/subdomain.
-Cycles through a priority list of Fallback Roots:
-mbdny.org | mbrtz.org | bato.to | mbwbm.org | mbznp.org | mbqgu.org
-Probes candidate URLs by swapping prefixes (e.g., v3, v7, v3x).
-Replaces the broken src with the first successful mirror found.
-Compatibility
-Manifest V3: Fully compliant with the latest Chrome standards.
-Lazy Loading: Compatible with Bato's native lazy-loading and "Long Strip" reading modes.
-🛠 Packaging for Distribution
-If you are a developer packaging this for a release:
-macOS / Linux:
-code
-Bash
+- `manifest.json` — Chrome/Firefox Manifest V3 configuration
+- `fixer.js` — Main content script (Latest version)
+- `fixer_v8.0.js` — Legacy v8.0 reference
+- `LICENSE` — MIT License
+- `CHANGELOG.md` — Project history
+
+---
+
+## 🚀 Installation
+
+### Browser Extension (Recommended)
+
+#### Chrome / Chromium / Edge
+
+> **Note**: Due to developer registration fees, this extension is not hosted on the official Chrome Web Store. Please use the manual installation method below or the Userscript version.
+
+1. Download the latest ZIP file from [Releases](https://github.com/SumonKayal/universal-batoto-image-fixer/releases)
+2. Extract the folder to a **permanent location** on your PC (don't delete or move it later)
+3. Open your browser's Extensions page (`chrome://extensions/`)
+4. Enable **Developer mode** (top right toggle)
+5. Click **Load unpacked** and select the extracted folder containing `manifest.json`
+
+#### Firefox
+
+**Official Store (Recommended)**:  
+Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/universal-batoto-image-fixer/)
+
+**Manual Temporary Load**:
+1. Go to `about:debugging#/runtime/this-firefox`
+2. Click **Load Temporary Add-on...**
+3. Select `manifest.json` from the project folder
+
+> ⚠️ **Note**: Temporary extensions are removed on browser restart
+
+**Firefox Unsigned Install** (Developer Edition/Nightly/ESR only):
+1. Download the XPI file from [Releases](https://github.com/SumonKayal/universal-batoto-image-fixer/releases)
+2. Open Firefox and type `about:config` in the address bar
+3. Accept the warning and search for `xpinstall.signatures.required`
+4. Set it to `false` (double-click to toggle)
+5. Restart Firefox
+6. Open the downloaded `.xpi` file and approve installation
+
+### Userscript (Tampermonkey / Violentmonkey / Greasemonkey)
+
+#### Method A — Direct Install (Recommended):
+1. Open Tampermonkey Dashboard → **Utilities**
+2. Paste the raw script URL:  
+   `https://raw.githubusercontent.com/SumonKayal/universal-batoto-image-fixer/main/fixer.js`
+3. Click **Install**
+
+#### Method B — Import from File:
+1. Download the raw userscript from the GitHub raw link
+2. In Tampermonkey → **Utilities** → **Import from file**, choose the file
+
+#### Method C — Manual Copy-Paste:
+1. Create a **New Userscript** in Tampermonkey
+2. Copy the code from `fixer.js` into the editor
+3. Save
+
+### Cromite & Mobile Support
+
+**Cromite**:
+1. **Settings** → **User Scripts** → **Activate User Scripts**
+2. **Add script** → select the downloaded `.user.js`
+
+**Mobile Browsers** (Kiwi / Lemur):
+1. Install Tampermonkey extension from Web Store
+2. Use the Userscript installation methods above
+
+---
+
+## 📖 Usage
+
+1. Install the extension or userscript
+2. Navigate to **bato.to**, **bato.cc**, or any supported mirror
+3. When images fail to load, the script will **automatically** try alternate roots and subdomains
+4. **No additional configuration required**
+
+**Example**: If an image URL on `mbdny.org` returns a 404 error, the script automatically attempts other configured domains and variant prefixes until a working image is found.
+
+---
+
+## ⚙️ Technical Details
+
+### Fallback Roots
+
+The script probes the following domains:
+
+| Domain | Status |
+|--------|--------|
+| `mbdny.org` | Active |
+| `mbrtz.org` | Active |
+| `bato.to` | Active |
+| `mbwbm.org` | Active |
+| `mbznp.org` | Active |
+| `mbqgu.org` | Active |
+
+### How it Works
+
+When an image fails to load, the algorithm:
+
+1. **Identifies** the current broken domain/subdomain
+2. **Cycles** through the Fallback Roots list
+3. **Probes** candidate URLs by swapping subdomain prefixes (e.g., v3, v7, v3x)
+4. **Replaces** the broken `src` with the first successful mirror found
+
+### Compatibility & Requirements
+
+- **Browser**: Chrome/Chromium/Edge (MV3) and Firefox (WebExtensions)
+- **Manifest V3**: Fully compliant with latest Chrome standards
+- **JavaScript**: Compatible with modern browsers (v8.1+ recommended)
+- **Lazy Loading**: Works with Bato's native lazy-loading and "Long Strip" reading modes
+- **Userscript**: Requires Tampermonkey or compatible manager
+
+---
+
+## 📦 Packaging for Distribution
+
+**macOS / Linux:**
+```bash
 zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*" "fixer_v8.0.js"
-Windows (PowerShell):
-code
-Powershell
+
+
+**Windows (PowerShell):**
+
 Compress-Archive -Path manifest.json, fixer.js, LICENSE, CHANGELOG.md -DestinationPath universal-batoto-image-fixer-v8.1.zip
+
+
+Before publishing:
+• Ensure manifest version matches `fixer.js` version
+• Keep host permissions minimal
+• Provide privacy policy if publishing to official stores
+
+
+⸻
+
+
 ❓ Troubleshooting & FAQ
-Q: Images still show as broken?
-A: Ensure no other "Image Blocker" or "Data Saver" extensions are interfering. Try refreshing the page once after installation.
-Q: Does this collect my data?
-A: No. The script runs entirely locally in your browser. It does not communicate with any external servers except the Batoto image mirrors.
-Q: Comment section avatars are still broken.
-A: Avatars use a different server logic. For the best experience with profile images, try using bato.cc/v3x or bato.si.
-Q: I found a bug!
-A: Please report it on the Batoto Subreddit or open an Issue here on GitHub.
+
+**Q: Images still show as broken?**  
+A: Ensure no other "Image Blocker" or "Data Saver" extensions are interfering. Try refreshing the page after installation.
+
+
+**Q: Does this collect my data?**  
+A: No. The script runs entirely locally in your browser. It only communicates with Batoto image mirrors.
+
+
+**Q: Comment avatars are still broken?**  
+A: Avatars use different server logic. Try using `bato.cc/v3x` or `bato.si` for better profile image support.
+
+
+**Q: How do I debug issues?**  
+A: Open DevTools (F12) → Console and look for logs prefixed by "Universal Batoto Image Fixer".
+
+
+**Q: Found a bug?**  
+A: Report it on the [Batoto Subreddit](https://www.reddit.com/r/batoto) or open an [Issue on GitHub](https://github.com/SumonKayal/universal-batoto-image-fixer/issues).
+
+
+⸻
+
+
 🤝 Contributing
-Fork the repository.
-Create a feature branch (git checkout -b feature/NewMirror).
-Commit your changes.
-Open a Pull Request.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes with clear messages
+4. Keep `manifest.json` and `fixer.js` versions in sync
+5. Open a Pull Request with a clear description
+
+
+For larger changes, open an issue first to discuss.
+
+
+⸻
+
+
 📜 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-Author: Sumon Kayal
-Maintainer: (Your Name/Contact)
-Disclaimer: This project is not affiliated with Bato.to. It is a community-driven tool to improve accessibility.
+
+Licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+• **Author**: Sumon Kayal
+• **Disclaimer**: This project is not affiliated with Bato.to. It is a community-driven tool to improve accessibility.
+
+
+⸻
+
+
+Contact
+
+**Author**: Sumon Kayal  
+**Repository**: [GitHub - Universal Batoto Image Fixer](https://github.com/SumonKayal/universal-batoto-image-fixer)
