@@ -1,6 +1,3 @@
-I've reorganized your README into a clean, well-structured markdown format. Here's the fixed version:
-
-
 # Universal Batoto Image Fixer
 
 ![Version](https://img.shields.io/badge/version-8.1+-blue.svg)
