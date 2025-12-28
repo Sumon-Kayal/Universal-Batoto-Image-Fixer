@@ -30,6 +30,7 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technical Details](#-technical-details)
+- [Packaging](#-packaging-for-disstribution)
 - [Troubleshooting & FAQ](#-troubleshooting--faq)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -114,6 +115,7 @@ download from this [Link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-
 1. Install Tampermonkey extension from Web Store
 2. Use the Userscript installation methods above
 3. For Via Browser on Android, go to Settings, add a new script, then copy and paste the script from [Fixer v8.0.js](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/d33f6ba6da8ce169d01911bf47cb25e88a4bea9b/Fixer%20v8.0.js)
+
 ---
 
 ## 📖 Usage
@@ -167,28 +169,18 @@ When an image fails to load, the algorithm:
 ```bash
 zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*" "fixer_v8.0.js"
 
-
-
-
 **Windows (PowerShell):**
 ```bash
-Compress-Archive -Path manifest.json, fixer.js, LICENSE, CHANGELOG.md -DestinationPath universal-batoto-image-fixer-v8.1.zip
-
-
-
+Compress-Archive -Path * -DestinationPath universal-batoto-image-fixer-v8.1.zip -Exclude *.git*, fixer_v8.0.js
 
 Before publishing:
 • Ensure manifest version matches `fixer.js` version
 • Keep host permissions minimal
 • Provide privacy policy if publishing to official stores
 
+---
 
-
-
-⸻
-
-
-❓ Troubleshooting & FAQ
+## ❓ Troubleshooting & FAQ
 
 **Q: Images still show as broken?**  
 A: Ensure no other "Image Blocker" or "Data Saver" extensions are interfering. Try refreshing the page after installation.
@@ -197,48 +189,38 @@ A: Ensure no other "Image Blocker" or "Data Saver" extensions are interfering. T
 **Q: Does this collect my data?**  
 A: No. The script runs entirely locally in your browser. It only communicates with Batoto image mirrors.
 
-
 **Q: Comment avatars are still broken?**  
 A: Avatars use different server logic. Try using `bato.cc/v3x` or `bato.si` for better profile image support.
-
 
 **Q: How do I debug issues?**  
 A: Open DevTools (F12) → Console and look for logs prefixed by "Universal Batoto Image Fixer".
 
-
 **Q: Found a bug?**  
 A: Report it on the [Batoto Subreddit](https://www.reddit.com/r/batoto) or open an [Issue on GitHub](https://github.com/SumonKayal/universal-batoto-image-fixer/issues).
 
+---
 
-⸻
-
-
-🤝 Contributing
+## 🤝 Contributing
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/YourFeature`)
 3. Commit your changes with clear messages
 4. Keep `manifest.json` and `fixer.js` versions in sync
 5. Open a Pull Request with a clear description
 
-
 For larger changes, open an issue first to discuss.
 
+---
 
-⸻
-
-
-📜 License
+## 📜 License
 
 Licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 • **Author**: Sumon Kayal
 • **Disclaimer**: This project is not affiliated with Bato.to. It is a community-driven tool to improve accessibility.
 
+---
 
-⸻
-
-
-Contact : sumankayalsuman4@proton.me
+## Contact : sumankayalsuman4@proton.me
 
 **Author**: Sumon Kayal  
 **Repository**: [GitHub - Universal Batoto Image Fixer](https://github.com/SumonKayal/universal-batoto-image-fixer)
