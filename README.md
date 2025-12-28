@@ -167,13 +167,11 @@ When an image fails to load, the algorithm:
 ```bash
 zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*" "fixer_v8.0.js"
 
----
 
 **Windows (PowerShell):**
 
 Compress-Archive -Path manifest.json, fixer.js, LICENSE, CHANGELOG.md -DestinationPath universal-batoto-image-fixer-v8.1.zip
 
----
 
 Before publishing:
 • Ensure manifest version matches `fixer.js` version
