@@ -204,7 +204,7 @@ Licensed under the **MIT License** — see the [LICENSE](LICENSE) file for detai
 
 ---
 
-## Contact : sumankayalsuman4@proton.me
+## 📇 Contact : sumankayalsuman4@proton.me
 
 **Author**: Sumon Kayal  
 **Repository**: [GitHub - Universal Batoto Image Fixer](https://github.com/SumonKayal/universal-batoto-image-fixer)
