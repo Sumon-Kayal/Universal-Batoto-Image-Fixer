@@ -70,7 +70,7 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 #### Firefox
 
 **Official Store ( Temporary Unavailable Due To Christmas)**:  
-Install from [Firefox Add-ons] https://addons.mozilla.org/en-US/firefox/addon/Universal-Batoto-Image-Fixer
+Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/android/addon/Universal-Batoto-Image-Fixer/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=featured)
 
 **Manual Temporary Load**:
 1. Go to `about:debugging#/runtime/this-firefox`
