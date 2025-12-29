@@ -30,7 +30,6 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technical Details](#-technical-details)
-- [Packaging](#-packaging-for-disstribution)
 - [Troubleshooting & FAQ](#-troubleshooting--faq)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -163,28 +162,10 @@ When an image fails to load, the algorithm:
 
 ---
 
-## 📦 Packaging for Distribution
-
-**macOS / Linux:**
-```bash
-zip -r universal-batoto-image-fixer-v8.1.zip . -x "*.git*" "fixer_v8.0.js"
-
-**Windows (PowerShell):**
-```bash
-Compress-Archive -Path * -DestinationPath universal-batoto-image-fixer-v8.1.zip -Exclude *.git*, fixer_v8.0.js
-
-Before publishing:
-• Ensure manifest version matches `fixer.js` version
-• Keep host permissions minimal
-• Provide privacy policy if publishing to official stores
-
----
-
 ## ❓ Troubleshooting & FAQ
 
 **Q: Images still show as broken?**  
 A: Ensure no other "Image Blocker" or "Data Saver" extensions are interfering. Try refreshing the page after installation.
-
 
 **Q: Does this collect my data?**  
 A: No. The script runs entirely locally in your browser. It only communicates with Batoto image mirrors.
@@ -224,3 +205,5 @@ Licensed under the **MIT License** — see the [LICENSE](LICENSE) file for detai
 
 **Author**: Sumon Kayal  
 **Repository**: [GitHub - Universal Batoto Image Fixer](https://github.com/SumonKayal/universal-batoto-image-fixer)
+
+---
