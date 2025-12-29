@@ -173,8 +173,7 @@ A: No. The script runs entirely locally in your browser. It only communicates wi
 **Q: Comment avatars are still broken?**  
 A: Avatars use different server logic. Try using `bato.cc/v3x` or `bato.si` for better profile image support.
 
-**Q: The website shows "404 Not Found" (nginx/1.20.1) or similar errors?**
-A: This is often due to regional blocking, ISP restrictions, or temporary mirror issues on Batoto. Try switching to alternative mirrors like bato.si or bato.ing. If that doesn't work, use a third-party VPN (such as Proton VPN) and avoid connecting to Japanese servers, as they may trigger additional restrictions or blocks.
+**Q: The website shows "404 Not Found" (nginx/1.20.1) or similar errors?**  A: This is often due to regional blocking, ISP restrictions, or temporary mirror issues on Batoto. Try switching to alternative mirrors like bato.si or bato.ing. If that doesn't work, use a third-party VPN (such as Proton VPN) and avoid connecting to Japanese servers, as they may trigger additional restrictions or blocks.
 
 **Q: How do I debug issues?**  
 A: Open DevTools (F12) → Console and look for logs prefixed by "Universal Batoto Image Fixer".
