@@ -8,7 +8,7 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 
 - **Author**: Sumon Kayal
 - **License**: MIT
-- **Current Stable**: v8.1+
+- **Current Stable**: v8.1
 
 ---
 
