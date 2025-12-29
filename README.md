@@ -1,6 +1,6 @@
 # Universal Batoto Image Fixer
 
-![Version](https://img.shields.io/badge/version-8.1+-blue.svg)
+![Version](https://img.shields.io/badge/version-8.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
 
@@ -69,8 +69,8 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 
 #### Firefox
 
-**Official Store (Recommended)**:  
-Install from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/universal-batoto-image-fixer/)
+**Official Store ( Temporary Unavailable Due To Christmas)**:  
+Install from [Firefox Add-ons] https://addons.mozilla.org/en-US/firefox/addon/Universal-Batoto-Image-Fixer
 
 **Manual Temporary Load**:
 1. Go to `about:debugging#/runtime/this-firefox`
@@ -156,7 +156,7 @@ When an image fails to load, the algorithm:
 
 - **Browser**: Chrome/Chromium/Edge (MV3) and Firefox (WebExtensions)
 - **Manifest V3**: Fully compliant with latest Chrome standards
-- **JavaScript**: Compatible with modern browsers (v8.1+ recommended)
+- **JavaScript**: Compatible with modern browsers (v8.1 recommended)
 - **Lazy Loading**: Works with Bato's native lazy-loading and "Long Strip" reading modes
 - **Userscript**: Requires Tampermonkey or compatible manager
 
