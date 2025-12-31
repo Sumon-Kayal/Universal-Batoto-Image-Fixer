@@ -115,7 +115,7 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 
 **Cromite**:
 1. **Settings** → **User Scripts** → **Activate User Scripts**
-2. **Add script** → Select the downloaded file from [GitHub](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js) or copy the text from [Pastebin](https://pastebin.com/raw/c0mBHwtH).
+2. **Add script** → You can download the file or copy the code directly from either source [GitHub](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)   [Pastebin](https://pastebin.com/raw/c0mBHwtH).
 
 **Mobile Browsers** (Kiwi / Lemur):
 1. Install Tampermonkey extension from Web Store
