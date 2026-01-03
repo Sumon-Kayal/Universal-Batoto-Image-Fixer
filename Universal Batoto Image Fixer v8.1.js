@@ -4,8 +4,8 @@
 // @author       Umbrella_Corporation
 // @version      8.1
 // @description  Fixes broken Batoto images using an advanced hybrid engine that rewrites k/kXX hosts to n/nXX, performs background server probing, and applies smart prioritization. Optimized for Firefox and Chromium-based browsers with banner-safe handling, proper srcset support, smart number retention, and strong cross-browser stability.
-// @downloadURL  https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/Universal-Batoto-Image-Fix.user.js
-// @updateURL    https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/Universal-Batoto-Image-Fix.user.js
+// @downloadURL  https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.1.js
+// @updateURL    https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.1.js
 // @run-at       document-start
 // @grant        GM_xmlhttpRequest
 // @grant        GM_registerMenuCommand
@@ -559,4 +559,98 @@ v1.0   – Initial k→n replacement (2025-12-09).
       rewrite(img);
 
       if (img.complete && img.naturalWidth === 0) {
-        advancedFixImage(im
+        advancedFixImage(img);
+      }
+    });
+  };
+
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(m => {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType === 1) scan(node);
+      });
+      if (m.type === 'attributes' && m.target.tagName === 'IMG') {
+        if (!m.target.dataset.btfxStatus) scan(m.target);
+      }
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['src', 'srcset', 'data-src']
+  });
+
+  /* ==================== AGGRESSIVE PERIODIC FIXER ==================== */
+  setInterval(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src');
+        if (src && (src.includes('.mb') || src.includes('.mp')) && src.includes('//k')) {
+          img.src = src.replace(/\/\/k(?=\d+)/ig, '//n');
+        }
+      });
+
+      document.querySelectorAll('[style*="url"]').forEach(el => {
+        const bg = el.style.backgroundImage;
+        if (bg && (bg.includes('.mb') || bg.includes('.mp')) && bg.includes('//k')) {
+          el.style.backgroundImage = bg.replace(/\/\/k(?=\d+)/ig, '//n');
+        }
+      });
+    });
+  }, CONFIG.AGGRESSIVE_INTERVAL);
+
+  /* ==================== AUTO-UPDATER ==================== */
+  const Updater = {
+    check(manual = false) {
+      if (typeof GM_xmlhttpRequest === 'undefined') return;
+
+      GM_xmlhttpRequest({
+        method: 'GET',
+        url: CONFIG.UPDATE_URL,
+        timeout: 10000,
+        onload: (response) => {
+          try {
+            const match = (response.responseText || '').match(/@version\s+([0-9.]+)/i);
+            if (match && Utils.isRemoteNewer(match[1], CONFIG.VERSION)) {
+              if (confirm('[BTFX] Update available: v' + CONFIG.VERSION + ' → v' + match[1] + '\n\nOpen update page?')) {
+                window.open(CONFIG.UPDATE_URL, '_blank');
+              }
+            } else if (manual) {
+              alert('[BTFX] v' + CONFIG.VERSION + ' is up to date\nBrowser: ' + (CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium') + '-optimized\nCache size: ' + serverCache.size);
+            }
+          } catch (err) {
+            Utils.error('Update check failed:', err);
+          }
+        },
+        onerror: () => manual && alert('[BTFX] Update check failed - network error'),
+        ontimeout: () => manual && alert('[BTFX] Update check failed - timeout')
+      });
+    }
+  };
+
+  setTimeout(() => Updater.check(), 5000);
+
+  if (typeof GM_registerMenuCommand === 'function') {
+    GM_registerMenuCommand('BTFX: Check for Updates', () => Updater.check(true));
+    GM_registerMenuCommand('BTFX: Clear Cache', () => {
+      serverCache.clear();
+      failedCache.clear();
+      alert('[BTFX] Cache cleared\nReload the page to rescan images.');
+    });
+  }
+
+  /* ==================== INITIALIZATION ==================== */
+  function init() {
+    Utils.log('Initialized v' + CONFIG.VERSION + ' (' + (CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium') + ' mode)');
+    scan();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
