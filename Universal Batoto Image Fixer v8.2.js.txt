@@ -1,0 +1,899 @@
+// ==UserScript==
+// @name         Universal Batoto Image Fixer
+// @namespace    http://tampermonkey.net/
+// @author       Umbrella_Corporation
+// @version      8.2
+// @description  Fixes broken Batoto images using an advanced hybrid engine that rewrites k/kXX hosts to n/nXX, performs background server probing, and applies smart prioritization. Optimized for Firefox and Chromium-based browsers with banner-safe handling, proper srcset support, smart number retention, and strong cross-browser stability.
+// @homepageURL  https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer
+// @downloadURL  https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js
+// @updateURL    https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js
+// @run-at       document-start
+// @grant        GM_xmlhttpRequest
+// @grant        GM_registerMenuCommand
+// @connect      raw.githubusercontent.com
+// @connect      pastebin.com
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=bato.to
+// @match        *://ato.to/*
+// @match        *://dto.to/*
+// @match        *://fto.to/*
+// @match        *://hto.to/*
+// @match        *://jto.to/*
+// @match        *://lto.to/*
+// @match        *://mto.to/*
+// @match        *://nto.to/*
+// @match        *://vto.to/*
+// @match        *://wto.to/*
+// @match        *://xto.to/*
+// @match        *://yto.to/*
+// @match        *://kuku.to/*
+// @match        *://okok.to/*
+// @match        *://ruru.to/*
+// @match        *://xdxd.to/*
+// @match        *://vba.to/*
+// @match        *://wba.to/*
+// @match        *://xba.to/*
+// @match        *://yba.to/*
+// @match        *://zba.to/*
+// @match        *://bato.ac/*
+// @match        *://bato.bz/*
+// @match        *://bato.cc/*
+// @match        *://bato.cx/*
+// @match        *://bato.id/*
+// @match        *://bato.pw/*
+// @match        *://bato.sh/*
+// @match        *://bato.si/*
+// @match        *://bato.to/*
+// @match        *://bato.vc/*
+// @match        *://bato.day/*
+// @match        *://bato.ing/*
+// @match        *://bato.red/*
+// @match        *://bato.run/*
+// @match        *://batoto.in/*
+// @match        *://batoto.tv/*
+// @match        *://xbato.com/*
+// @match        *://xbato.net/*
+// @match        *://xbato.org/*
+// @match        *://zbato.com/*
+// @match        *://zbato.net/*
+// @match        *://zbato.org/*
+// @match        *://batpub.com/*
+// @match        *://battwo.com/*
+// @match        *://comiko.net/*
+// @match        *://comiko.org/*
+// @match        *://batotoo.com/*
+// @match        *://batotwo.com/*
+// @match        *://batread.com/*
+// @match        *://readtoto.com/*
+// @match        *://readtoto.net/*
+// @match        *://readtoto.org/*
+// @match        *://batocomic.com/*
+// @match        *://batocomic.net/*
+// @match        *://batocomic.org/*
+// @match        *://mangatoto.com/*
+// @match        *://mangatoto.net/*
+// @match        *://mangatoto.org/*
+// ==/UserScript==
+
+/*
+===================== Universal Batoto Image Fix - Complete Changelog =====================
+
+v8.2   – Hybrid Update System Release (2026-01-03):
+       – NEW: Dual update source system (GitHub + Pastebin).
+       – NEW: Parallel update checking with automatic fallback.
+       – NEW: Priority-based source selection.
+       – NEW: Individual source check menu commands.
+       – NEW: Enhanced version comparison system.
+       – NEW: Detailed status reporting for manual checks.
+       – IMPROVED: Better error handling for update checks.
+       – IMPROVED: More informative user notifications.
+       – Full backward compatibility with v8.1 maintained.
+       
+v8.1   – Community Stability Release (2026-01-03):
+       – FIXED: Critical syntax error in CONFIG object (missing comma after UPDATE_URL).
+       – FIXED: Multiple broken template string literals using \( { } syntax.
+       – FIXED: Undefined variables by initializing all required constants:
+       - Added SUBDOMAIN_RE and HOST_RE regex patterns
+       - Initialized processingImages (Set), serverCache (Map), failedCache (Set)
+       - Defined MAX_ATTEMPTS and ENABLE_EAGER_ON_INITIAL
+       – FIXED: Undefined Utils object with proper log, error, and isRemoteNewer methods.
+       – CONVERTED: All template literals to string concatenation for broader compatibility.
+       – RESULT: Script is now syntactically valid and executes without ReferenceErrors.
+       – PRESERVED: Original Pastebin UPDATE_URL unchanged.
+       – Full backward compatibility with v8.0 features maintained.
+       
+v8.0   – ULTIMATE MERGED EDITION (2025-12-25):
+       – MERGED: All features from v7.0 (Hybrid Probe) and v5.8 (Browser Optimizations).
+       – INCLUDES: Advanced probing logic with server pattern caching.
+       – INCLUDES: Candidate generation with smart priority levels.
+       – INCLUDES: Background probe verification before URL switching.
+       – INCLUDES: Failed server caching to avoid redundant attempts.
+       – INCLUDES: Browser-specific optimizations (Firefox 15s / Chromium 2s intervals).
+       – INCLUDES: Smart number retention from v5.8.
+       – INCLUDES: Critical race condition fixes (listener before rewrite).
+       – INCLUDES: Eager loading enforcement for Chromium optimization.
+       – INCLUDES: Aggressive periodic fixer for .mb and .mp domains.
+       – INCLUDES: Srcset rewriting with cached working servers.
+       – INCLUDES: Complete domain coverage (80+ domain patterns).
+       – Full compatibility with Firefox, Chromium, Edge, and mobile browsers.
+
+v7.0   – HYBRID PROBE ENGINE (2025-12-24):
+       – MERGED: Advanced Probing Logic with server pattern caching.
+       – NEW: Candidate generation with priority levels (0-5).
+       – NEW: Background "Probe" verification (tests URLs before switching).
+       – NEW: Failed server caching to avoid redundant 404/timeout attempts.
+       – IMPROVED: Srcset rewriting now uses cached working server patterns.
+
+v6.0   – Expanded Domain Support (2025-12-24):
+       – ADDED: Support for .mbdny, .mbrtz, .mbwbm, .mbznp, .mbqgu.
+       – ADDED: Support for .mpfip, .mpizz, .mpmok, .mpqom, .mpqsc, .mprnm, .mpubn, .mpujj, .mpvim, .mpypl.
+       – UPDATED: Aggressive fixer targets both .mb and .mp domain structures.
+
+v5.8   – Add support for Firefox v146 (2024-12-24).
+
+v5.7   – Firefox Optimization Release (2025-12-24):
+       – NEW: Browser detection for Firefox vs Chromium-based.
+       – Firefox Mode: Adaptive aggressive fixer with 15s interval (vs 2s for Chromium).
+       – Firefox Mode: Selective eager loading only on error recovery (not initial).
+       – Chromium Mode: Original aggressive behavior unchanged.
+       – Maintains full compatibility with both browser engines.
+       – No performance penalty on Chromium; significant improvement on Firefox.
+
+v5.6   – Final Merged Release (2025-12-24):
+       – Combined features from v5.5 Beta, v5.3 Release, and v4.2 Chromium Tuned.
+       – INCLUDES: Aggressive 'n' mirror enforcement (from v5.5).
+       – INCLUDES: Priority Brute-Force with Smart Number Retention (from v5.3).
+       – INCLUDES: Critical race condition fix (listener before rewrite).
+       – INCLUDES: Eager loading enforcement for Chromium/V8 optimization.
+       – INCLUDES: Aggressive periodic fixer for .mb domains.
+       – ADDED: Support for new mirror domain bato.ing.
+       – Final stable version with all features merged.
+
+v5.5   – Aggressive Periodic Fixer (2025-12-24 Beta):
+       – Runs every 2 seconds to catch missed images.
+       – Targets .mb domains specifically (mbtmv.org).
+       – Fixes background-image CSS properties.
+
+v5.3.1 – Critical fix for tamperonkey (2025-12-23).
+
+v5.3   – Critical Race Condition Fix (2025-12-22):
+       – CRITICAL: Listener now attached BEFORE src rewrite.
+       – Original URL stored in data-btfx-orig for recovery.
+       – Numeric version comparison for updates.
+       – Smart number retention preserved.
+
+v5.2.1 – Changelog Rearrangement (2025-12-16).
+
+v5.2   – Updater and Version Alignment (2025-12-16):
+       – Aligned internal version constant.
+       – Corrected UPDATE_URL to Pastebin.
+
+v5.1   – Browser Support Documentation (2025-12-16):
+       – Added list of unsupported browsers in description.
+
+v5.0.1 – Version Description Fix (2025-12-16).
+
+v5.0   – Final Release (2025-12-16):
+       – Full feature parity with v4.9.
+
+v4.9   – Latest Stable Release (2025-12-15):
+       – Full compatibility with Microsoft Edge for Android.
+       – Full compatibility with Waterfox for Android.
+       – Confirmed no breakage with AdGuard and uBlock Origin.
+       – Improved resilience against content-blocking.
+
+v4.8   – Internal Testing (2025-12-15):
+       – Testing with Waterfox and Microsoft Edge for Android.
+
+v4.7   – Core Overhaul & Unification (2025-12-15):
+       1. OPTIMIZED: Fixed memory leaks and recursion stack overflows.
+       2. ADDED: Full support for Cromite (Android).
+       3. MERGED: Aggressive 'n' Enforcement (v4.5) with Smart Number Retention (v4.6).
+       4. SAFETY: Added explicit checks for unsupported browsers.
+
+v4.6   – Smart Number Retention (2025-12-15):
+       1. Preserves original node numbers (e.g., 08) during swaps (Fixes mbtmv.org).
+       2. Expanded node search (00-10).
+       3. 'k' mirror promoted to High Priority.
+
+v4.5   – Aggressive 'n' Enforcement (2025-12-15):
+       – Foundation for aggressive 'n' mirror targeting.
+
+v4.2   – Priority Brute Force (2025-12-15):
+       – Reordered mirror search to try common servers (m, p, w, a) first.
+       – Eager Loading: Forces 'loading="eager"' during recovery.
+       – V8 Optimization: Direct property access for max speed.
+
+v4.1   – Chrome Opt (2025-12-15):
+       – Removed Firefox safety wrappers.
+
+v3.9   – Internal Testing & removed firefox support (2025-12-15).
+
+v3.7   – Internal testing across multiple browser (2025-12-15).
+
+v3.6   – Unified milestone release (2025-12-15):
+       – Incorporates final unified core architecture.
+       – Mirror alignment cleanup.
+       – Firefox-safe execution model.
+       – Conditional v1.9.1 hybrid recovery logic.
+       – Full mirror coverage.
+       – Optional non-intrusive Pastebin updater.
+       – Removal of always-on retry behavior.
+
+v3.0   – Major refactor experiments and hybrid architecture exploration (2025-12-15).
+
+v2.6   – Hybrid engine + updater attempts (2025-12-15).
+
+v2.3   – Stability fixes (2025-12-15).
+
+v2.0   – Hybrid concept introduced (2025-12-15).
+
+v1.9.1 – Hybrid update integrating fixes from redditor "mindlesstourist3" (2025-12-15):
+       – Host rotation.
+       – Retry/backoff.
+       – Broken-image detection.
+
+v1.9   – Metadata fixes, stronger attribute handling, improved srcset support (2025-12-15).
+
+v1.8   – bato.si + mirror expansion (2025-12-15).
+
+v1.7   – Dynamic DOM handling (2025-12-15).
+
+v1.6   – Observer optimizations (2025-12-15).
+
+v1.5   – Community mirror expansion (2025-12-14).
+
+v1.4   – Critical banner fix (property-level img.src) (2025-12-13).
+
+v1.3   – MutationObserver introduced (2025-12-12).
+
+v1.2   – Attribute safety (2025-12-11).
+
+v1.1   – Minor fixes (2025-12-10).
+
+v1.0   – Initial k→n replacement (2025-12-09).
+
+========================================================================================
+*/
+
+(function () {
+  'use strict';
+
+  if (window.__BTFX_LOADED__) return;
+  window.__BTFX_LOADED__ = true;
+
+  /* ==================== CONSTANTS & STATE ==================== */
+  var SUBDOMAIN_RE = /^https?:\/\/([a-zA-Z])(\d{1,3})\.([a-z0-9-]+)\.([a-z]{2,4})(\/.*)$/i;
+  var HOST_RE = /^(https?:\/\/)k(\d{1,3}\.[a-z0-9-]+\.[a-z]{2,4})(\/.*)$/i;
+
+  var MAX_ATTEMPTS = 20;
+
+  var processingImages = new Set();
+  var serverCache = new Map();
+  var failedCache = new Set();
+
+  /* ==================== CONFIGURATION ==================== */
+  var CONFIG = {
+    VERSION: '8.2',
+    
+    // Hybrid update sources
+    UPDATE_SOURCES: [
+      {
+        name: 'GitHub',
+        url: 'https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js',
+        priority: 1,
+        timeout: 10000
+      },
+      {
+        name: 'Pastebin',
+        url: 'https://pastebin.com/raw/c0mBHwtH',
+        priority: 2,
+        timeout: 8000
+      }
+    ],
+
+    // Browser detection
+    IS_FIREFOX: /Firefox\/(\d+)/.test(navigator.userAgent),
+    IS_CHROMIUM: /Chrome\/|Chromium\/|Edg\/|OPR\//.test(navigator.userAgent),
+
+    // Timing
+    PROBE_TIMEOUT: 5000,
+    RETRY_DELAY: 1000,
+    AGGRESSIVE_INTERVAL: null,
+
+    // Cache
+    CACHE_EXPIRY_MS: 300000,
+    FAILED_CACHE_EXPIRY_MS: 180000,
+
+    // Fallbacks
+    FALLBACK_PREFIXES: ['n', 'x', 't', 's', 'w', 'm', 'c', 'u'],
+    FALLBACK_ROOTS: [
+      'mbdny.org', 'mbrtz.org', 'mbwbm.org', 'mbznp.org', 'mbqgu.org',
+      'mpfip.org', 'mpizz.org', 'mpmok.org', 'mpqom.org', 'mpqsc.org',
+      'mprnm.org', 'mpubn.org', 'mpujj.org', 'mpvim.org', 'mpypl.org'
+    ],
+
+    // Features
+    ENABLE_EAGER_LOADING: true,
+    ENABLE_EAGER_ON_INITIAL: true,
+    ENABLE_DEBUG: false
+  };
+
+  CONFIG.AGGRESSIVE_INTERVAL = CONFIG.IS_FIREFOX ? 15000 : 5000;
+
+  /* ==================== UTILS ==================== */
+  var Utils = {
+    log: function() {
+      if (CONFIG.ENABLE_DEBUG) {
+        var args = Array.prototype.slice.call(arguments);
+        args.unshift('[BTFX]');
+        console.log.apply(console, args);
+      }
+    },
+    
+    error: function() {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift('[BTFX]');
+      console.error.apply(console, args);
+    },
+    
+    compareVersions: function(a, b) {
+      var aParts = String(a).split('.').map(function(n) { return parseInt(n, 10) || 0; });
+      var bParts = String(b).split('.').map(function(n) { return parseInt(n, 10) || 0; });
+      var len = Math.max(aParts.length, bParts.length);
+      
+      for (var i = 0; i < len; i++) {
+        var na = aParts[i] || 0;
+        var nb = bParts[i] || 0;
+        if (na > nb) return 1;
+        if (na < nb) return -1;
+      }
+      return 0;
+    },
+    
+    isRemoteNewer: function(remote, local) {
+      return this.compareVersions(remote, local) > 0;
+    }
+  };
+
+  /* ==================== URL PARSING ==================== */
+  function parseSubdomain(src) {
+    if (!src) return null;
+    var m = src.match(SUBDOMAIN_RE);
+    if (!m) return null;
+    return {
+      prefix: m[1].toLowerCase(),
+      number: parseInt(m[2], 10),
+      root: m[3].toLowerCase(),
+      tld: m[4].toLowerCase(),
+      path: m[5]
+    };
+  }
+
+  function quickFixURL(url) {
+    if (typeof url !== 'string') return url;
+    return url.replace(HOST_RE, '$1n$2$3');
+  }
+
+  /* ==================== PROBING ==================== */
+  function probeUrl(url, timeout) {
+    timeout = timeout || CONFIG.PROBE_TIMEOUT;
+    
+    return new Promise(function(resolve, reject) {
+      var cacheKey = url.split('/').slice(0, 3).join('/');
+      if (failedCache.has(cacheKey)) {
+        reject('cached-fail');
+        return;
+      }
+
+      var img = new Image();
+      img.referrerPolicy = "no-referrer";
+      var timedOut = false;
+
+      var t = setTimeout(function() {
+        timedOut = true;
+        img.src = "";
+        failedCache.add(cacheKey);
+        reject('timeout');
+      }, timeout);
+
+      img.onload = function() {
+        if (!timedOut) {
+          clearTimeout(t);
+          if (img.width > 1 || img.height > 1) {
+            resolve(true);
+          } else {
+            failedCache.add(cacheKey);
+            reject('empty');
+          }
+        }
+      };
+
+      img.onerror = function() {
+        if (!timedOut) {
+          clearTimeout(t);
+          failedCache.add(cacheKey);
+          reject('error');
+        }
+      };
+
+      img.src = url;
+    });
+  }
+
+  /* ==================== CANDIDATE GENERATION ==================== */
+  function generateCandidates(parsed) {
+    var candidates = [];
+    var pathKey = parsed.path.split('/').slice(0, 3).join('/');
+
+    var add = function(prefix, number, root, tld, priority) {
+      var numStr = String(number);
+      if (numStr.length < 2) numStr = '0' + numStr;
+      var url = 'https://' + prefix + numStr + '.' + root + '.' + tld + parsed.path;
+      candidates.push({ url: url, priority: priority });
+    };
+
+    // Cached working server first
+    var cacheKey = parsed.root + '-' + pathKey;
+    if (serverCache.has(cacheKey)) {
+      var cached = serverCache.get(cacheKey);
+      add(cached.prefix, cached.number, cached.root, cached.tld, 0);
+    }
+
+    // High priority fixes for 'k' prefix
+    if (parsed.prefix === 'k') {
+      add('n', parsed.number, parsed.root, parsed.tld, 1);
+      add('x', parsed.number, parsed.root, parsed.tld, 1);
+    }
+
+    // Other prefix fallbacks
+    for (var i = 0; i < CONFIG.FALLBACK_PREFIXES.length; i++) {
+      var letter = CONFIG.FALLBACK_PREFIXES[i];
+      if (letter !== parsed.prefix) {
+        add(letter, parsed.number, parsed.root, parsed.tld, 2);
+      }
+    }
+
+    // Same prefix, different numbers
+    var numbers = [1, 2, 3, 4, 5, 0, 8, 10];
+    for (var j = 0; j < numbers.length; j++) {
+      var num = numbers[j];
+      if (num !== parsed.number) {
+        add(parsed.prefix, num, parsed.root, parsed.tld, 3);
+      }
+    }
+
+    // Different roots
+    for (var k = 0; k < CONFIG.FALLBACK_ROOTS.length; k++) {
+      var root = CONFIG.FALLBACK_ROOTS[k];
+      var parts = root.split('.');
+      var r = parts[0];
+      var t = parts[1];
+      if (r !== parsed.root) {
+        add(parsed.prefix, parsed.number, r, t, 4);
+      }
+    }
+
+    // Dedupe and sort
+    var seen = new Set();
+    return candidates
+      .sort(function(a, b) { return a.priority - b.priority; })
+      .filter(function(c) {
+        if (seen.has(c.url)) return false;
+        seen.add(c.url);
+        return true;
+      })
+      .map(function(c) { return c.url; })
+      .slice(0, MAX_ATTEMPTS);
+  }
+
+  /* ==================== SRCSET REWRITING ==================== */
+  function rewriteSrcset(srcset, workingUrl) {
+    if (!srcset) return null;
+    var p = parseSubdomain(workingUrl);
+    if (!p) return null;
+    var numStr = String(p.number);
+    if (numStr.length < 2) numStr = '0' + numStr;
+    var newBase = 'https://' + p.prefix + numStr + '.' + p.root + '.' + p.tld;
+    return srcset.replace(/https?:\/\/[a-zA-Z]+\d{1,3}\.[a-z0-9-]+\.[a-z]{2,4}/gi, newBase);
+  }
+
+  /* ==================== ADVANCED FIX ENGINE ==================== */
+  function advancedFixImage(img, isRetry) {
+    isRetry = isRetry || false;
+    
+    if (processingImages.has(img) || img.dataset.btfxStatus === "done") return;
+
+    processingImages.add(img);
+    img.dataset.btfxStatus = "probing";
+
+    var parsed = parseSubdomain(img.src);
+    if (!parsed) {
+      processingImages.delete(img);
+      return;
+    }
+
+    var candidates = generateCandidates(parsed);
+    var lastError = null;
+
+    var tryNext = function(index) {
+      if (index >= candidates.length) {
+        if (!isRetry && lastError === 'timeout') {
+          setTimeout(function() {
+            advancedFixImage(img, true);
+          }, CONFIG.RETRY_DELAY);
+        }
+        processingImages.delete(img);
+        return;
+      }
+
+      var url = candidates[index];
+      var serverPattern = url.split('/').slice(0, 3).join('/');
+      
+      if (failedCache.has(serverPattern)) {
+        tryNext(index + 1);
+        return;
+      }
+
+      probeUrl(url).then(function() {
+        var successParsed = parseSubdomain(url);
+        var pathKey = parsed.path.split('/').slice(0, 3).join('/');
+        serverCache.set(parsed.root + '-' + pathKey, successParsed);
+
+        img.referrerPolicy = "no-referrer";
+        img.src = url;
+        
+        if (img.srcset) {
+          var newSet = rewriteSrcset(img.srcset, url);
+          if (newSet) img.srcset = newSet;
+        }
+
+        if (CONFIG.ENABLE_EAGER_LOADING) img.loading = "eager";
+
+        img.dataset.btfxStatus = "done";
+        processingImages.delete(img);
+      }).catch(function(e) {
+        lastError = e;
+        tryNext(index + 1);
+      });
+    };
+
+    tryNext(0);
+  }
+
+  /* ==================== PREEMPTIVE FIX ==================== */
+  function preemptiveQuickFix(img) {
+    if (img.dataset.btfxStatus) return;
+
+    var parsed = parseSubdomain(img.src);
+    if (!parsed || parsed.prefix !== 'k') return;
+
+    var numStr = String(parsed.number);
+    if (numStr.length < 2) numStr = '0' + numStr;
+    var newUrl = 'https://n' + numStr + '.' + parsed.root + '.' + parsed.tld + parsed.path;
+
+    img.dataset.btfxOrig = img.src;
+    img.referrerPolicy = "no-referrer";
+    img.src = newUrl;
+
+    if (CONFIG.IS_CHROMIUM && CONFIG.ENABLE_EAGER_ON_INITIAL) {
+      img.loading = 'eager';
+    }
+    
+    img.dataset.btfxStatus = "preemptive";
+
+    setTimeout(function() {
+      if (img.complete && img.naturalWidth === 0) {
+        advancedFixImage(img);
+      }
+    }, 2000);
+  }
+
+  /* ==================== ATTRIBUTE REWRITING ==================== */
+  function rewrite(img) {
+    var touched = false;
+    var attributes = ['src', 'data-src', 'srcset'];
+
+    for (var i = 0; i < attributes.length; i++) {
+      var attr = attributes[i];
+      var value = img.getAttribute(attr);
+      if (!value) continue;
+
+      if (attr === 'srcset') {
+        var newValue = value.split(',').map(function(part) {
+          var parts = part.trim().split(/\s+/);
+          var fixed = quickFixURL(parts[0]);
+          if (fixed !== parts[0]) {
+            parts[0] = fixed;
+            touched = true;
+          }
+          return parts.join(' ');
+        }).join(', ');
+        if (newValue !== value) img.setAttribute(attr, newValue);
+      } else {
+        var fixed = quickFixURL(value);
+        if (fixed !== value) {
+          img.setAttribute(attr, fixed);
+          touched = true;
+        }
+      }
+    }
+
+    if (touched) {
+      img.referrerPolicy = 'no-referrer';
+      if (CONFIG.ENABLE_EAGER_ON_INITIAL) img.loading = 'eager';
+    }
+
+    return touched;
+  }
+
+  /* ==================== DOM SCANNING ==================== */
+  var scan = function(root) {
+    root = root || document;
+    var imgs = root instanceof HTMLImageElement ? [root] : root.querySelectorAll('img');
+    
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.dataset.btfxStatus === "done") continue;
+
+      if (!img.dataset.btfxAttached) {
+        img.dataset.btfxAttached = "1";
+        img.addEventListener('error', function(e) {
+          advancedFixImage(e.target);
+        }, { once: true });
+      }
+
+      preemptiveQuickFix(img);
+      rewrite(img);
+
+      if (img.complete && img.naturalWidth === 0) {
+        advancedFixImage(img);
+      }
+    }
+  };
+
+  /* ==================== MUTATION OBSERVER ==================== */
+  var observer = new MutationObserver(function(mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      var m = mutations[i];
+      
+      for (var j = 0; j < m.addedNodes.length; j++) {
+        var node = m.addedNodes[j];
+        if (node.nodeType === 1) scan(node);
+      }
+      
+      if (m.type === 'attributes' && m.target.tagName === 'IMG') {
+        if (!m.target.dataset.btfxStatus) scan(m.target);
+      }
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['src', 'srcset', 'data-src']
+  });
+
+  /* ==================== AGGRESSIVE PERIODIC FIXER ==================== */
+  setInterval(function() {
+    requestAnimationFrame(function() {
+      var imgs = document.querySelectorAll('img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        var src = img.getAttribute('src');
+        if (src && (src.indexOf('.mb') !== -1 || src.indexOf('.mp') !== -1) && src.indexOf('//k') !== -1) {
+          img.src = src.replace(/\/\/k(?=\d+)/ig, '//n');
+        }
+      }
+
+      var styled = document.querySelectorAll('[style*="url"]');
+      for (var j = 0; j < styled.length; j++) {
+        var el = styled[j];
+        var bg = el.style.backgroundImage;
+        if (bg && (bg.indexOf('.mb') !== -1 || bg.indexOf('.mp') !== -1) && bg.indexOf('//k') !== -1) {
+          el.style.backgroundImage = bg.replace(/\/\/k(?=\d+)/ig, '//n');
+        }
+      }
+    });
+  }, CONFIG.AGGRESSIVE_INTERVAL);
+
+  /* ==================== HYBRID UPDATER ==================== */
+  var Updater = {
+    checkSource: function(source) {
+      return new Promise(function(resolve, reject) {
+        if (typeof GM_xmlhttpRequest === 'undefined') {
+          reject(new Error('GM_xmlhttpRequest not available'));
+          return;
+        }
+
+        GM_xmlhttpRequest({
+          method: 'GET',
+          url: source.url,
+          timeout: source.timeout,
+          onload: function(response) {
+            try {
+              var text = response.responseText || '';
+              var versionMatch = text.match(/@version\s+([0-9.]+)/i);
+              
+              if (versionMatch) {
+                resolve({
+                  source: source.name,
+                  version: versionMatch[1],
+                  url: source.url,
+                  content: text
+                });
+              } else {
+                reject(new Error('Version not found'));
+              }
+            } catch (err) {
+              reject(err);
+            }
+          },
+          onerror: function() {
+            reject(new Error('Network error'));
+          },
+          ontimeout: function() {
+            reject(new Error('Timeout'));
+          }
+        });
+      });
+    },
+
+    checkAll: function() {
+      var promises = [];
+      for (var i = 0; i < CONFIG.UPDATE_SOURCES.length; i++) {
+        promises.push(this.checkSource(CONFIG.UPDATE_SOURCES[i]));
+      }
+
+      return Promise.allSettled(promises).then(function(results) {
+        var successful = [];
+        
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].status === 'fulfilled') {
+            successful.push(results[i].value);
+          }
+        }
+
+        successful.sort(function(a, b) {
+          var versionCompare = Utils.compareVersions(b.version, a.version);
+          if (versionCompare !== 0) return versionCompare;
+          
+          var sourceA = CONFIG.UPDATE_SOURCES.find(function(s) { return s.name === a.source; });
+          var sourceB = CONFIG.UPDATE_SOURCES.find(function(s) { return s.name === b.source; });
+          return sourceA.priority - sourceB.priority;
+        });
+
+        return successful;
+      });
+    },
+
+    check: function(manual) {
+      manual = manual || false;
+      
+      this.checkAll().then(function(updates) {
+        if (updates.length === 0) {
+          if (manual) {
+            alert('[BTFX] Update check failed - all sources unavailable');
+          }
+          return;
+        }
+
+        var latest = updates[0];
+        var currentVersion = CONFIG.VERSION;
+
+        if (Utils.isRemoteNewer(latest.version, currentVersion)) {
+          var sourcesInfo = updates.map(function(u) {
+            return u.source + ' (v' + u.version + ')';
+          }).join(', ');
+
+          var message = '[BTFX] Update available!\n\n' +
+            'Current: v' + currentVersion + '\n' +
+            'Latest: v' + latest.version + ' from ' + latest.source + '\n\n' +
+            'Available sources: ' + sourcesInfo + '\n\n' +
+            'Open update page?';
+
+          if (confirm(message)) {
+            window.open(latest.url, '_blank');
+          }
+        } else if (manual) {
+          var sourcesStatus = CONFIG.UPDATE_SOURCES.map(function(source) {
+            var result = updates.find(function(u) { return u.source === source.name; });
+            if (result) {
+              return source.name + ': ✓ v' + result.version;
+            } else {
+              return source.name + ': ✗ unavailable';
+            }
+          }).join('\n');
+
+          alert('[BTFX] Version Status\n\n' +
+            'Current: v' + currentVersion + ' (up to date)\n' +
+            'Browser: ' + (CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium') + '-optimized\n\n' +
+            'Update Sources:\n' + sourcesStatus);
+        }
+      }).catch(function(err) {
+        Utils.error('Update check error:', err);
+        if (manual) {
+          alert('[BTFX] Update check failed: ' + err.message);
+        }
+      });
+    },
+
+    checkSpecific: function(sourceName) {
+      var source = CONFIG.UPDATE_SOURCES.find(function(s) { return s.name === sourceName; });
+      if (!source) {
+        alert('[BTFX] Unknown source: ' + sourceName);
+        return;
+      }
+
+      this.checkSource(source).then(function(result) {
+        if (Utils.isRemoteNewer(result.version, CONFIG.VERSION)) {
+          if (confirm('[BTFX] Update from ' + sourceName + '\n\n' +
+            'Current: v' + CONFIG.VERSION + '\n' +
+            'Available: v' + result.version + '\n\n' +
+            'Open update page?')) {
+            window.open(result.url, '_blank');
+          }
+        } else {
+          alert('[BTFX] ' + sourceName + ' check\n\n' +
+            'Current version v' + CONFIG.VERSION + ' is up to date\n' +
+            'Remote version: v' + result.version);
+        }
+      }).catch(function(err) {
+        alert('[BTFX] ' + sourceName + ' check failed\n\n' + err.message);
+      });
+    }
+  };
+
+  /* ==================== MENU COMMANDS ==================== */
+  if (typeof GM_registerMenuCommand === 'function') {
+    GM_registerMenuCommand('BTFX: Check for Updates (All Sources)', function() {
+      Updater.check(true);
+    });
+    
+    for (var i = 0; i < CONFIG.UPDATE_SOURCES.length; i++) {
+      (function(source) {
+        GM_registerMenuCommand('BTFX: Check ' + source.name + ' Only', function() {
+          Updater.checkSpecific(source.name);
+        });
+      })(CONFIG.UPDATE_SOURCES[i]);
+    }
+    
+    GM_registerMenuCommand('BTFX: Clear Cache', function() {
+      serverCache.clear();
+      failedCache.clear();
+      alert('[BTFX] Cache cleared\nReload the page to rescan images.');
+    });
+    
+    GM_registerMenuCommand('BTFX: Show Configuration', function() {
+      var info = '[BTFX] Configuration\n\n' +
+        'Version: ' + CONFIG.VERSION + '\n' +
+        'Browser Mode: ' + (CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium') + '\n' +
+        'Aggressive Interval: ' + CONFIG.AGGRESSIVE_INTERVAL + 'ms\n' +
+        'Server Cache: ' + serverCache.size + ' entries\n' +
+        'Failed Cache: ' + failedCache.size + ' entries\n\n' +
+        'Update Sources:\n' +
+        CONFIG.UPDATE_SOURCES.map(function(s) {
+          return '  ' + s.priority + '. ' + s.name + '\n     ' + s.url;
+        }).join('\n');
+      alert(info);
+    });
+  }
+
+  /* ==================== INITIALIZATION ==================== */
+  function init() {
+    Utils.log('Initialized v' + CONFIG.VERSION + ' (' + (CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium') + ' mode)');
+    scan();
+    
+    // Auto-check for updates
+    setTimeout(function() {
+      Updater.check(false);
+    }, 5000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
