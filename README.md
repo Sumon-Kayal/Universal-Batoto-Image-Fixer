@@ -46,11 +46,25 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 
 ## Repository Contents
 
-- `manifest.json` — Chrome/Firefox Manifest V3 configuration
-- `fixer.js` — **Extension Source Code** (Main content script for extensions)
-- `Fixer v8.0.js` — **Userscript Version** (For Tampermonkey/GreasyFork)
-- `LICENSE` — MIT License
-- `CHANGELOG.md` — Project history
+### Core Files
+
+- `manifest.json` — Manifest V3 configuration for Chrome/Firefox browser extension (defines permissions, content scripts, icons, etc.)
+- `fixer.js` — Core content script for the browser extension; contains the main image-fixing logic
+- `Fixer v8.0.js` — Userscript version for Tampermonkey/Violentmonkey (stable older version)
+- `Universal Batoto Image Fixer v8.1.js` — Updated userscript variant (v8.1)
+- `Universal Batoto Image Fixer v8.2.js` — Latest userscript variant (v8.2, most recent development)
+
+### Documentation
+
+- `CHANGELOG.md` — Detailed history of changes and updates across versions
+- `README.md` — Comprehensive project documentation (features, installation, usage, FAQ, etc.)
+- `LICENSE.txt` — Full text of the MIT License
+
+### Assets
+
+- `icon16.png`  — 16×16 extension icon
+- `icon48.png`  — 48×48 extension icon
+- `icon128.png` — 128×128 extension icon
 
 ---
 
@@ -66,7 +80,7 @@ All notable changes to this project are documented in the [CHANGELOG.md](https:/
 
 > **Note**: Due to developer registration fees, this extension is not hosted on the official Chrome Web Store. Please use the manual installation method below or the Userscript version.
 
-1. Download the latest ZIP file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.1).
+1. Download the latest ZIP file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.2).
 2. Extract the folder to a **permanent location** on your PC (do not delete or move it later).
 3. Open your browser's Extensions page (`chrome://extensions/`).
 4. Enable **Developer mode** (toggle in the top right).
@@ -85,7 +99,7 @@ All notable changes to this project are documented in the [CHANGELOG.md](https:/
 > ⚠️ **Note**: Temporary extensions are removed when the browser restarts.
 
 **Firefox Unsigned Install** (Developer Edition/Nightly/ESR only):
-1. Download the XPI file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.1).
+1. Download the XPI file from [Releases](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/releases/tag/v8.2).
 2. Open Firefox and type `about:config` in the address bar.
 3. Accept the warning and search for `xpinstall.signatures.required`.
 4. Set it to `false` (double-click to toggle).
@@ -94,32 +108,31 @@ All notable changes to this project are documented in the [CHANGELOG.md](https:/
 
 ### Userscript (Tampermonkey / Violentmonkey / Greasemonkey)
 
-> **Note**: For Userscript managers, use **v8.0**.
+> **Note**: v8.2 recommended for latest features. v8.0 available as stable fallback.
 
 #### Method A — Direct Install (Recommended):
 1. Open the Tampermonkey Dashboard → **Utilities**.
 2. Paste one of the following URLs into the input box:
-   * [**GitHub Raw (Primary)**](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
-   
-   * [**Pastebin Raw (Alternative)**](https://pastebin.com/raw/c0mBHwtH)
-   3. Click **Install**.
+   * [**GitHub Raw v8.2 (Primary)**](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js)
+   * [**Old Pastebin Raw Code v8.0 (Alternative)**](https://pastebin.com/raw/c0mBHwtH)
+3. Click **Install**.
 
 #### Method B — Import from File:
-1. Download `Fixer v8.0.js` from the [GitHub Link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js) or [Pastebin Link](https://pastebin.com/c0mBHwtH).
+1. Download `Universal Batoto Image Fixer v8.2.js` from [GitHub](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js) or [Old Pastebin v8.0](https://pastebin.com/raw/c0mBHwtH).
 2. In Tampermonkey → **Utilities** → **Import from file**, choose the downloaded file.
 
 #### Method C — Manual Copy-Paste:
 1. Create a **New Userscript** in Tampermonkey.
 2. Copy the code from one of the following sources:
-   *   [GitHub Raw Code](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
-   *   [Pastebin Raw Code](https://pastebin.com/raw/c0mBHwtH)
+   * [GitHub Raw v8.2 Code](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js)
+   * [Old Pastebin Raw Code v8.0](https://pastebin.com/raw/c0mBHwtH)
 3. Paste into the editor and **Save**.
 
 ### Cromite & Mobile Support
 
 **Cromite**:
 1. Go to **Settings** → **User Scripts** → **Activate User Scripts**.
-2. Tap **Add script**. You can download the file or copy the code directly from either [GitHub](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js) or [Pastebin](https://pastebin.com/raw/c0mBHwtH).
+2. Tap **Add script**. You can download the file or copy the code directly from either [GitHub](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js) or [Pastebin](https://pastebin.com/raw/c0mBHwtH).
 
 **Mobile Browsers** (Kiwi / Lemur):
 1. Install the Tampermonkey extension from the Web Store.
@@ -128,9 +141,9 @@ All notable changes to this project are documented in the [CHANGELOG.md](https:/
 **Via Browser Settings (Generic)**:
 1. Go to **Settings** → **Scripts** → **Add New**.
 2. Copy and paste the script code from:
-   *   [GitHub Raw](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
+   *   [GitHub Raw v8.2](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/refs/heads/main/Universal%20Batoto%20Image%20Fixer%20v8.2.js)
    *   **OR**
-   *   [Pastebin Raw](https://pastebin.com/raw/c0mBHwtH)
+   *   [Old Pastebin Raw code v8.0](https://pastebin.com/raw/c0mBHwtH)
 
 ---
 
@@ -153,7 +166,7 @@ The script probes the following domains:
 
 | Domain | Status |
 |--------|--------|
-| `bato.to` | Active |
+| `bato.to`   | Active |
 | `mbdny.org` | Active |
 | `mbrtz.org` | Active |
 | `mbwbm.org` | Active |
@@ -183,7 +196,7 @@ When an image fails to load, the algorithm:
 
 - **Browser**: Chrome/Chromium/Edge (MV3) and Firefox (WebExtensions).
 - **Manifest V3**: Fully compliant with the latest Chrome standards.
-- **JavaScript**: Compatible with modern browsers (v8.1 recommended).
+- **JavaScript**: Compatible with modern browsers (v8.2 recommended).
 - **Lazy Loading**: Works with Bato's native lazy-loading and "Long Strip" reading modes.
 - **Userscript**: Requires Tampermonkey or a compatible manager.
 
