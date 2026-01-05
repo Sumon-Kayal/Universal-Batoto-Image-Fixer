@@ -89,16 +89,16 @@ SOFTWARE.
   const Utils = {
     log(...args) {
       if (CONFIG.ENABLE_DEBUG) {
-        console.log('[BTFX v9]', ...args);
+        console.log(`[BTFX v${CONFIG.VERSION}]`, ...args);
       }
     },
     
     error(...args) {
-      console.error('[BTFX v9]', ...args);
+      console.error(`[BTFX v${CONFIG.VERSION}]`, ...args);
     },
 
     warn(...args) {
-      console.warn('[BTFX v9]', ...args);
+      console.warn(`[BTFX v${CONFIG.VERSION}]`, ...args);
     },
     
     parseSubdomain(src) {
