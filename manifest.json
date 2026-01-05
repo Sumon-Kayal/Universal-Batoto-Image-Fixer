@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Universal Batoto Image Fixer",
-  "version": "8.1",
-  "description": "Fixes broken images on Bato.to and mirror sites automatically by probing mirror servers and swapping prefixes.",
+  "version": "8.2",
+  "description": "Fixes broken images on Bato.to and mirror sites automatically using intelligent probing and caching.",
   "permissions": [],
   "host_permissions": [
     "*://*.mbdny.org/*",
@@ -24,6 +24,7 @@
   "content_scripts": [
     {
       "matches": [
+        "*://bato.to/*",
         "*://*.bato.to/*",
         "*://*.ato.to/*",
         "*://*.dto.to/*",
@@ -53,6 +54,8 @@
         "*://*.bato.day/*",
         "*://*.bato.red/*",
         "*://*.bato.run/*",
+        "*://*.bato.si/*",
+        "*://*.bato.ing/*",
         "*://*.batoto.in/*",
         "*://*.batoto.tv/*",
         "*://*.batotoo.com/*",
@@ -81,27 +84,23 @@
         "*://*.okok.to/*",
         "*://*.ruru.to/*",
         "*://*.xdxd.to/*",
-        "*://*.bato.si/*",
-        "*://*.bato.ing/*",
         "*://*.mangapark.net/*",
         "*://*.mangapark.io/*",
         "*://*.mangapark.com/*"
       ],
-      "js": [
-        "fixer.js"
-      ],
-      "run_at": "document_idle"
+      "js": ["fixer.js"],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "browser_specific_settings": {
     "gecko": {
-      "id": "sumankayalsuman@proton.me",
-      "update_url": "https://raw.githubusercontent.com/Sumon-Kayal/manifest.json/main/updates.json",
-      "data_collection_permissions": {
-        "required": [
-          "none"
-        ]
-      }
+      "id": "sumankayalsuman4@proton.me"
     }
   }
 }
