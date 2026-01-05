@@ -1,6 +1,6 @@
 # Universal Batoto Image Fixer
 
-![Version](https://img.shields.io/badge/version-8.1-blue.svg)
+![Version](https://img.shields.io/badge/version-8.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/platform-Chrome%20|%20Firefox%20|%20Userscript-orange.svg)
 
