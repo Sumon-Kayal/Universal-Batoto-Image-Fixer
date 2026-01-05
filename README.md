@@ -99,10 +99,9 @@ All notable changes to this project are documented in the [CHANGELOG.md](https:/
 #### Method A — Direct Install (Recommended):
 1. Open the Tampermonkey Dashboard → **Utilities**.
 2. Paste one of the following URLs into the input box:
-   *   **GitHub Raw [Primary](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
+   * [**GitHub Raw (Primary)**](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
    
-   *   **Pastebin Raw [Alternative](https://pastebin.com/raw/c0mBHwtH)
-   
+   * [**Pastebin Raw (Alternative)**](https://pastebin.com/raw/c0mBHwtH)
    3. Click **Install**.
 
 #### Method B — Import from File:
