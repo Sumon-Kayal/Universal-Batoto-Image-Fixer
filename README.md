@@ -8,7 +8,7 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 
 - **Author**: Sumon Kayal
 - **License**: MIT
-- **Current Stable Version**: v8.1
+- **Current Stable Version**: v8.2
 
 ---
 
@@ -27,6 +27,7 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 
 - [About](#about)
 - [Repository Contents](#repository-contents)
+- [Changelog](#Changelog)
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technical Details](#-technical-details)
@@ -52,6 +53,10 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 - `CHANGELOG.md` — Project history
 
 ---
+
+## Changelog
+
+All notable changes to this project are documented in the [CHANGELOG.md](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/main/CHANGELOG.md) file.
 
 ## 🚀 Installation
 
@@ -94,11 +99,11 @@ This project patches image URLs on Bato.to (and known mirrors) when images fail 
 #### Method A — Direct Install (Recommended):
 1. Open the Tampermonkey Dashboard → **Utilities**.
 2. Paste one of the following URLs into the input box:
-   *   **GitHub Raw (Primary):**
-       `https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js`
-   *   **Pastebin Raw (Alternative):**
-       `https://pastebin.com/raw/c0mBHwtH`
-3. Click **Install**.
+   *   **GitHub Raw [Primary](https://raw.githubusercontent.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js)
+   
+   *   **Pastebin Raw [Alternative](https://pastebin.com/raw/c0mBHwtH)
+   
+   3. Click **Install**.
 
 #### Method B — Import from File:
 1. Download `Fixer v8.0.js` from the [GitHub Link](https://github.com/Sumon-Kayal/Universal-Batoto-Image-Fixer/blob/2e67e82bbedff45aa15b973c0d422d18afca46e9/Fixer%20v8.0.js) or [Pastebin Link](https://pastebin.com/c0mBHwtH).
@@ -149,12 +154,22 @@ The script probes the following domains:
 
 | Domain | Status |
 |--------|--------|
+| `bato.to` | Active |
 | `mbdny.org` | Active |
 | `mbrtz.org` | Active |
-| `bato.to`   | Active |
 | `mbwbm.org` | Active |
 | `mbznp.org` | Active |
 | `mbqgu.org` | Active |
+| `mpfip.org` | Active |
+| `mpizz.org` | Active |
+| `mpmok.org` | Active |
+| `mpqom.org` | Active |
+| `mpqsc.org` | Active |
+| `mprnm.org` | Active |
+| `mpubn.org` | Active |
+| `mpujj.org` | Active |
+| `mpvim.org` | Active |
+| `mpypl.org` | Active |
 
 ### How It Works
 
