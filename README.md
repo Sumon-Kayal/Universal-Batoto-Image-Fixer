@@ -27,7 +27,7 @@ Universal Batoto Image Fixer automatically repairs broken images on Bato.to and 
 
 - [About](#about)
 - [Repository Contents](#repository-contents)
-- [Changelog](#Changelog)
+- [Changelog](#changelog)
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technical Details](#-technical-details)
