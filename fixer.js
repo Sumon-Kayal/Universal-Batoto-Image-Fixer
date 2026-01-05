@@ -578,7 +578,12 @@ SOFTWARE.
     });
   });
 
-  /* ==================== INITIALIZATION ==================== */
+  /**
+   * Initialize the image fixer: run an initial scan, attach the mutation observer, and start periodic maintenance tasks.
+   *
+   * Sets up the DOM scan of existing images, begins observing the document for added/changed images, schedules aggressive scans,
+   * and schedules periodic cache cleanup.
+   */
   function initialize() {
     Utils.log(`Initialized v${CONFIG.VERSION} (${CONFIG.IS_FIREFOX ? 'Firefox' : 'Chromium'} mode)`);
     
